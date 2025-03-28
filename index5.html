@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder Web Application</title>
+    <style>
+        :root {
+            --primary: #9156d3;
+            --primary-light:  #5b73e8;
+            --secondary: #10b981;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        /* Header */
+        .project-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 5rem 1rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .project-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .project-header .subtitle {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .section h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        /* Key Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .feature-card {
+            background: #f8fafc;
+            padding: 1.75rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .feature-card h3 {
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        
+        /* How It Works */
+        .steps {
+            counter-reset: step;
+            margin-top: 1.5rem;
+        }
+        
+        .step {
+            position: relative;
+            padding-left: 3.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Screenshots */
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .screenshot {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot:hover {
+            transform: translateY(-5px);
+        }
+        
+        .screenshot img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .screenshot-caption {
+            padding: 1.25rem;
+            background: white;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* Technologies */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .tech-item {
+            background: #e0e7ff;
+            color:#9156d3;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        
+        /* Impact */
+        .impact-points {
+            margin-top: 1.5rem;
+        }
+        
+        .impact-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .impact-icon {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            background: #f0fdf4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+        }
+        
+        /* Future Enhancements */
+        .enhancements {
+            margin-top: 1.5rem;
+        }
+        
+        .enhancement {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .enhancement-icon {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            background: #eff6ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        /* Links */
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-header {
+                padding: 3rem 1rem;
+            }
+            
+            .project-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 1.75rem;
+            }
+            
+            .project-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="project-header">
+        <h1>Resume Builder Web Application</h1>
+        <p class="subtitle">Interactive tool for creating professional resumes with instant PDF generation</p>
+        <a href="javascript:history.back()" class="back-btn">← Back to Portfolio</a>
+    </header>
+    
+    <main class="container">
+        <section class="section">
+            <h2>Project Overview</h2>
+            <p>The Resume Builder Web Application is an interactive tool designed to help users create professional resumes quickly and efficiently. It provides an intuitive, user-friendly interface where users can input their personal details, skills, education, experience, and references, and generate a well-formatted PDF resume that can be downloaded instantly.</p>
+        </section>
+        <section class="section">
+            <h2>Technologies Used</h2>
+            <div class="tech-stack">
+                <span class="tech-item">Flask (Python)</span>
+                <span class="tech-item">HTML</span>
+                <span class="tech-item">CSS</span>
+                <span class="tech-item">JavaScript</span>
+                <span class="tech-item">ReportLab</span>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Key Features</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>User-Friendly Interface</h3>
+                    <p>A simple and clean UI that allows users to enter resume details effortlessly.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Dynamic Skill & Language Section</h3>
+                    <p>Users can add multiple skills and languages with proficiency levels using a slider input.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Real-Time Preview & Validation</h3>
+                    <p>Ensures correct data entry before generating the resume.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Instant PDF Generation</h3>
+                    <p>The resume is dynamically converted into a professional PDF format using ReportLab.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>On-the-Fly Download</h3>
+                    <p>The generated PDF is immediately available for download without storing it on the server.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>File Upload Support</h3>
+                    <p>Users can upload a profile picture to personalize their resume.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>User Input</h3>
+                    <p>Users enter their details (name, phone, email, address, profile summary, skills, languages, references, etc.).</p>
+                </div>
+                <div class="step">
+                    <h3>Interactive Elements</h3>
+                    <p>Skills and languages are adjustable using a slider to indicate proficiency.</p>
+                </div>
+                <div class="step">
+                    <h3>Form Submission</h3>
+                    <p>The form data is submitted, and Flask processes it to generate a PDF resume dynamically.</p>
+                </div>
+                <div class="step">
+                    <h3>PDF Download</h3>
+                    <p>The PDF is immediately available for download in the browser, eliminating the need for local storage.</p>
+                </div>
+            </div>
+        </section>
+             
+        <section class="section">
+            <h2>Impact & Benefits</h2>
+            <div class="impact-points">
+                <div class="impact-point">
+                    <div class="impact-icon">✓</div>
+                    <div>
+                        <h3>Simplifies Resume Creation</h3>
+                        <p>Eliminates manual formatting and provides a structured approach to resume building.</p>
+                    </div>
+                </div>
+                <div class="impact-point">
+                    <div class="impact-icon">✓</div>
+                    <div>
+                        <h3>Instant Professional Results</h3>
+                        <p>Helps users generate professional resumes instantly, improving job application efficiency.</p>
+                    </div>
+                </div>
+                <div class="impact-point">
+                    <div class="impact-icon">✓</div>
+                    <div>
+                        <h3>Modern User Experience</h3>
+                        <p>Provides an interactive and dynamic form handling experience.</p>
+                    </div>
+                </div>
+                <div class="impact-point">
+                    <div class="impact-icon">✓</div>
+                    <div>
+                        <h3>Portfolio Showcase</h3>
+                        <p>Demonstrates full-stack development skills including backend logic and PDF generation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Future Enhancements</h2>
+            <div class="enhancements">
+                <div class="enhancement">
+                    <div class="enhancement-icon">💡</div>
+                    <div>
+                        <h3>Resume Templates</h3>
+                        <p>Add multiple design templates for different resume styles.</p>
+                    </div>
+                </div>
+                <div class="enhancement">
+                    <div class="enhancement-icon">💡</div>
+                    <div>
+                        <h3>Database Integration</h3>
+                        <p>Save user-generated resumes for future editing and modifications.</p>
+                    </div>
+                </div>
+                <div class="enhancement">
+                    <div class="enhancement-icon">💡</div>
+                    <div>
+                        <h3>Cloud Storage</h3>
+                        <p>Allow users to store resumes in the cloud for easy access.</p>
+                    </div>
+                </div>
+                <div class="enhancement">
+                    <div class="enhancement-icon">💡</div>
+                    <div>
+                        <h3>Email Integration</h3>
+                        <p>Send resumes directly to recruiters from the platform.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Project Links</h2>
+            <div class="project-links">
+                <a href="https://github.com/manibharathi2006/Resume-Maker-App" class="project-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.374 0 0 5.373 0 12C0 17.302 3.438 21.8 8.207 23.387C8.806 23.498 9 23.126 9 22.81V20.576C5.662 21.302 4.967 19.16 4.967 19.16C4.421 17.773 3.634 17.404 3.634 17.404C2.545 16.659 3.717 16.675 3.717 16.675C4.922 16.759 5.556 17.912 5.556 17.912C6.626 19.746 8.363 19.216 9.048 18.909C9.155 18.134 9.466 17.604 9.81 17.305C7.145 17.001 4.343 15.971 4.343 11.374C4.343 10.063 4.812 8.993 5.579 8.153C5.455 7.85 5.044 6.629 5.696 4.977C5.696 4.977 6.704 4.655 8.997 6.207C9.954 5.941 10.98 5.808 12 5.803C13.02 5.808 14.047 5.941 15.006 6.207C17.297 4.655 18.303 4.977 18.303 4.977C18.956 6.629 18.545 7.85 18.421 8.153C19.191 8.993 19.656 10.064 19.656 11.374C19.656 15.983 16.849 16.998 14.177 17.295C14.607 17.667 15 18.397 15 19.517V22.81C15 23.129 15.192 23.504 15.801 23.386C20.566 21.797 24 17.3 24 12C24 5.373 18.627 0 12 0Z" fill="currentColor"/>
+                    </svg>
+                    GitHub Repository
+                </a>
+                <a href="https://manibharathi2006.github.io/Resume-Maker-App/" class="project-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" fill="currentColor"/>
+                        <path d="M12 24C12 24 20 16 20 9C20 4 16.4183 0 12 0C7.58172 0 4 4 4 9C4 16 12 24 12 24ZM12 14C8.68629 14 6 11.3137 6 8C6 4.68629 8.68629 2 12 2C15.3137 2 18 4.68629 18 8C18 11.3137 15.3137 14 12 14Z" fill="currentColor"/>
+                    </svg>
+                    Live Demo
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Back button functionality
+        document.querySelector('.back-btn').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,701 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  scroll-behavior: smooth;
+}
+body {
+  line-height: 1.6;
+  color: #333;
+  background: #f9f9f9;
+  font-family: 'Inter', 'Helvetica Neue', sans-serif; /* Modern font */
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #f9f9f9, #e3e3e3); /* Smoother transitions */
+  text-rendering: optimizeLegibility; /* Enhances text clarity */
+}
+/* Navbar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 40px;
+  padding-right: 40px;
+  padding-bottom: 40px;
+  padding-left: 40px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  top: 0;
+  width: 100%;
+  z-index: 1100;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Navbar Scroll Effect */
+nav.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Navbar Menu */
+nav ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+}
+
+/* Navbar Links */
+nav a {
+  position: relative; /* Required for underline effect */
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 5px 10px;
+}
+
+/* Smooth Underline Hover Effect */
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #6e8efb, #a777e3);
+  transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+nav a:hover {
+  color: #6e8efb;
+}
+
+nav a:hover::after {
+  width: 100%;
+  left: 0;
+}
+  .resume-container {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .resume-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0 auto;
+  }
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  /* Collapse the navbar menu to a vertical list */
+  nav ul {
+    display: none; /* Hide the menu by default */
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    top: 80px; /* Adjust according to navbar height */
+    left: 0;
+    right: 0;
+    padding: 1rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Show the menu when the menu is toggled */
+  nav ul.show {
+    display: flex;
+  }
+
+  /* Navbar Links */
+  nav a {
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Navbar Toggle Button */
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #333;
+  }
+
+  /* Remove the box-shadow and padding for mobile */
+  nav {
+    padding: 20px;
+  }
+}
+
+/* Resume Button Styles for Mobile */
+.resume-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.resume-btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0 auto;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  /* Navbar */
+  nav {
+    flex-direction: column; /* Stack navbar items vertically */
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+  }
+
+  /* Navbar Menu */
+  nav ul {
+    flex-direction: column; /* Stack navbar links vertically */
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  /* Navbar Links */
+  nav a {
+    font-size: 1rem; /* Adjust font size */
+    padding: 10px;
+  }
+
+  /* Resume Button */
+  .resume-btn {
+    width: 80%; /* Make resume button a bit smaller on mobile */
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+}
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 5rem 10%;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh; /* Ensures a balanced layout */
+}
+
+/* Animated Floating Effect */
+.hero h2 {
+  animation: fadeInUp 1s ease-in-out;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  max-width: 600px;
+  animation: fadeInUp 1.2s ease-in-out;
+}
+
+/* Button Styling */
+.button1 {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(to right, #6e8efb, #a777e3);
+  border: none;
+  border-radius: 8px;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  margin-top: 1.5rem;
+  animation: fadeInUp 1.4s ease-in-out;
+}
+
+.button1:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Background Floating Shapes */
+.hero::before, .hero::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  filter: blur(50px);
+  z-index: 0;
+}
+
+.hero::before {
+  top: -50px;
+  left: 20%;
+  animation: float 6s infinite alternate ease-in-out;
+}
+
+.hero::after {
+  bottom: -50px;
+  right: 20%;
+  animation: float 8s infinite alternate ease-in-out;
+}
+
+/* Floating Animation */
+@keyframes float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(20px);
+  }
+}
+
+/* Fade-in Up Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Sections */
+section {
+  padding: 4rem 10%;
+}
+
+/* Section Headings */
+h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px; /* Improves readability */
+}
+
+/* Animated Underline Effect for h3 */
+h3::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, #6e8efb, #a777e3);
+  margin: 8px auto 0;
+  border-radius: 2px;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Hover Effect for h3 */
+h3:hover::after {
+  width: 100px;
+}
+
+/* About Section */
+.about {
+  background-color: white;
+  padding: 4rem 10%;
+  border-radius: 12px; /* Slightly increased for a softer look */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Hover Effect for About Section */
+.about:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px); /* Subtle lift effect */
+}
+
+/* Skills Section */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+/* Skill Badges */
+.skills span {
+  background: linear-gradient(to right, #6e8efb, #a777e3);
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Effect */
+.skills span:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+  /* Projects Section */
+.projects {
+  background: #f9f9f9;
+  padding: 4rem 10%;
+}
+
+/* Project Grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+/* Project Cards */
+.project-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  position: relative;
+}
+
+/* Hover Effect */
+.project-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Project Images */
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Project Title */
+.project-card h4 {
+  margin: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Project Description */
+.project-card p {
+  margin: 0 1rem 1rem;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Tech Stack Badge */
+.project-card .tech {
+  background: linear-gradient(to right, #6e8efb, #a777e3);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  display: inline-block;
+  margin: 0 1rem 1rem;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    text-align: center;
+  }
+
+  .project-card h4 {
+    font-size: 1rem;
+  }
+
+  .project-card p {
+    font-size: 0.85rem;
+  }
+}
+
+ /* Links Section */
+.links {
+  display: flex;
+  gap: 1.2rem;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Ensures responsiveness */
+}
+
+/* Link Styles */
+.links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out, transform 0.2s;
+}
+
+/* Hover Effect */
+.links a:hover {
+  color: #6e8efb;
+  transform: scale(1.1);
+}
+/* Contact Section */
+.contact {
+  text-align: center;
+  background: white;
+  padding: 2rem;
+}
+
+/* Contact Buttons */
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.contact-btn {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: #6e8efb;
+  color: white;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+.contact-btn:hover {
+  background: #a777e3;
+}
+
+/* Social Media Icons */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.social-icon {
+  font-size: 1.8rem; /* Consistent size */
+  color: #333;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+  color: #6e8efb;
+}
+.resume-btn {
+  display: inline-block;
+  margin-top: 0;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1100;
+}
+
+/* Hover Effect */
+.resume-btn:hover {
+  background: linear-gradient(135deg, #5b73e8, #9156d3);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(248, 248, 248, 0.2);
+  color: white;
+  
+}
+
+/* Active Effect (Click) */
+.resume-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .resume-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+ /* Timeline Styling */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+  position: relative;
+}
+
+/* Add a vertical line for a true timeline effect */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #6e8efb, #a777e3);
+  border-radius: 2px;
+}
+
+/* Timeline Item */
+.timeline-item {
+  background: white;
+  padding: 1.8rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  position: relative;
+  border-left: 5px solid #6e8efb;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Floating hover effect */
+.timeline-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* Dot Indicator */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 20px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 4px solid #6e8efb;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.timeline-item:hover::before {
+  background: #6e8efb;
+}
+
+/* Timeline Heading */
+.timeline-item h4 {
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+/* Grade Styling */
+.grade {
+  font-weight: bold;
+  color: #a777e3;
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+}
+
+  
+  /* Project Icons */
+  .project-icon {
+    font-size: 2.5rem;
+    color: #6e8efb;
+    margin-bottom: 1rem;
+  }
+  
+  /* Achievements Grid */
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .achievement-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+  }
+  
+  .achievement-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .achievement-card i {
+    font-size: 2rem;
+    color: #6e8efb;
+    margin-bottom: 1rem;
+  }
+  
+  /* Skill Bars */
+  .skill-category {
+    margin-bottom: 1.5rem;
+  }
+  
+  .skill-bar {
+    width: 100%;
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+  }
+  
+  .skill-level {
+    height: 100%;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #6e8efb, #a777e3);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .about-content {
+      flex-direction: column;
+    }
+    
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #333;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Segmentation Using K-Means Clustering</title>
+    <style>
+        /* Modern CSS with Variables */
+        :root {
+            --primary: #9156d3;
+            --primary-light:  #5b73e8;
+            --secondary: #10b981;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        /* Header */
+        .project-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 5rem 1rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .project-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .project-header .subtitle {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .section h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        /* Key Contributions */
+        .contributions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .contribution-card {
+            background: #f8fafc;
+            padding: 1.75rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .contribution-card h3 {
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        /* Methodology */
+        .methodology-steps {
+            counter-reset: step;
+            margin-top: 1.5rem;
+        }
+        
+        .step {
+            position: relative;
+            padding-left: 3.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Visualizations */
+        .visualizations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .viz-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .viz-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .viz-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .viz-caption {
+            padding: 1.25rem;
+            background: white;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* Impact */
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .stat-card {
+            background: #f0fdf4;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #dcfce7;
+        }
+        
+        .stat-card h3 {
+            color: var(--secondary);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tools   {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .tool {
+            background: #e0e7ff;
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        /* Links */
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-header {
+                padding: 3rem 1rem;
+            }
+            
+            .project-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 1.75rem;
+            }
+            
+            .project-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="project-header">
+        <h1>Customer Segmentation Using K-Means Clustering</h1>
+        <p class="subtitle">Behavioral clustering to enable targeted marketing strategies and improve profitability</p>
+        <a href="javascript:history.back()" class="back-btn">← Back to Portfolio</a>
+    </header>
+    
+    <main class="container">
+        <section class="section">
+            <h2>Project Overview</h2>
+            <p>Leveraged behavioral data (spending, income) to segment customers into distinct groups using K-Means clustering, enabling targeted marketing strategies that improved retention and profitability.</p>
+        </section>
+        
+        <section class="section">
+            <h2>Key Contributions</h2>
+            <div class="contributions">
+                <div class="contribution-card">
+                    <h3>Data Analysis</h3>
+                    <p>Processed 10,000+ customer records (demographic + behavioral) using Python (Pandas, Scikit-learn).</p>
+                </div>
+                <div class="contribution-card">
+                    <h3>Clustering Model</h3>
+                    <p>Identified <strong>3 high-impact segments</strong> including High-Value Frequent Buyers (Top 15% revenue).</p>
+                </div>
+                <div class="contribution-card">
+                    <h3>Insights</h3>
+                    <p>Achieved a <strong>Silhouette Score of 0.65</strong>, confirming well-separated clusters.</p>
+                </div>
+                <div class="contribution-card">
+                    <h3>Visualization</h3>
+                    <p>Created interactive dashboards (Tableau) to profile segments by spending/income patterns.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Methodology</h2>
+            <div class="methodology-steps">
+                <div class="step">
+                    <h3>Data Collection</h3>
+                    <p>Aggregated customer data (age, income, purchase history) from CRM and transactional databases.</p>
+                </div>
+                <div class="step">
+                    <h3>Preprocessing</h3>
+                    <p>Handled missing values, normalized features (Min-Max scaling), and selected key variables (RFM metrics).</p>
+                </div>
+                <div class="step">
+                    <h3>Modeling</h3>
+                    <p>Optimized K-Means with the Elbow Method (<code>K=3</code>) and validated with Silhouette Score.</p>
+                </div>
+                <div class="step">
+                    <h3>Actionable Outputs</h3>
+                    <p>Designed targeted email campaigns for each segment, boosting conversion rates by <strong>20%</strong>.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Tools & Technologies</h2>
+            <div class="tools">
+                <span class="tool">Python</span>
+                <span class="tool">Pandas</span>
+                <span class="tool">Scikit-learn</span>
+                <span class="tool">Matplotlib</span>
+                <span class="tool">Seaborn</span>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Sample Visuals</h2>
+            <div class="visualizations">
+                <div class="viz-card">
+                    <img src="assest\pic4.png" alt="Elbow Method Plot">
+                    <div class="viz-caption">Determined optimal clusters (K=3) using within-cluster variance</div>
+                </div>
+                <div class="viz-card">
+                    <img src="assest\pic5.png" alt="Segment Scatter Plot">
+                    <div class="viz-caption">High-value customers showed 5x higher average spending</div>
+                </div>
+                <div class="viz-card">
+                    <img src="assest\pic6.png" alt="Tableau Dashboard">
+                    <div class="viz-caption">Interactive dashboard for segment profiling</div>
+                </div>
+            </div>
+        </section>    
+        <section class="section">
+            <h2>Project Links</h2>
+            <div class="project-links">
+                <a href="https://github.com/manibharathi2006/Customer-Segmentation" class="project-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.374 0 0 5.373 0 12C0 17.302 3.438 21.8 8.207 23.387C8.806 23.498 9 23.126 9 22.81V20.576C5.662 21.302 4.967 19.16 4.967 19.16C4.421 17.773 3.634 17.404 3.634 17.404C2.545 16.659 3.717 16.675 3.717 16.675C4.922 16.759 5.556 17.912 5.556 17.912C6.626 19.746 8.363 19.216 9.048 18.909C9.155 18.134 9.466 17.604 9.81 17.305C7.145 17.001 4.343 15.971 4.343 11.374C4.343 10.063 4.812 8.993 5.579 8.153C5.455 7.85 5.044 6.629 5.696 4.977C5.696 4.977 6.704 4.655 8.997 6.207C9.954 5.941 10.98 5.808 12 5.803C13.02 5.808 14.047 5.941 15.006 6.207C17.297 4.655 18.303 4.977 18.303 4.977C18.956 6.629 18.545 7.85 18.421 8.153C19.191 8.993 19.656 10.064 19.656 11.374C19.656 15.983 16.849 16.998 14.177 17.295C14.607 17.667 15 18.397 15 19.517V22.81C15 23.129 15.192 23.504 15.801 23.386C20.566 21.797 24 17.3 24 12C24 5.373 18.627 0 12 0Z" fill="currentColor"/>
+                    </svg>
+                    GitHub Repository
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Back button functionality
+        document.querySelector('.back-btn').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
+</body>
+</html>
